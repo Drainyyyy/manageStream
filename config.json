@@ -1,0 +1,25 @@
+{
+  "directories": {
+    "software": "D://OBS//obs-studio//bin//64bit//obs64.exe",
+    "app_dir": "D://dev//workspace//",
+    "dashboard": "https://twitch.tv/localhost_net/dashboard/live"
+  },
+
+  "files": {
+    "countdown": {
+      "time_up_message": "Time's up!",
+      "countdown_in_sec": 60
+    },
+    "uptime": {
+      "time_done_in_sec": "0"
+    }
+  },
+
+  "toggle": {
+    "software": false,
+    "dashboard": false,
+    "uptime": true,
+    "countdown": false,
+    "time": true
+  }
+}
