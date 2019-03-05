@@ -1,5 +1,7 @@
 # Project
-.idea/
+*.idea/
+out/
+*.iml
 
 
 # Compiled class file
