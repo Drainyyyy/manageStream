@@ -11,14 +11,29 @@ import com.github.drainyyyy.manageStream.util.Log;
 
 import java.util.HashMap;
 
+/**
+ * @author Drainyyy
+ * https://github.com/Drainyyyy
+ */
 public class Countdown extends FileHandler {
 
     String fileName = "countdown.txt";
 
+    /** Creates a countdown file.
+     * <br>
+     * A countdown in seconds is taken from the config. As long as the countdown is more or same as 0, it's getting written to a countdown.txt file.<br>
+     * When the time's up a special message (also taken from the config) is written into the file.
+     *
+     * @see FileHandler
+     * @see File
+     * @see ConfigReader
+     *
+     * @since 1.0
+     */
     @Override
     public void start() {
 
-        HashMap<String, HashMap> config = new ConfigReader("config.json").readConfig();
+        HashMap<String, HashMap> config = ConfigReader.readConfig("config.json");
         HashMap<String, HashMap> configFiles = config.get("files");
         HashMap<String, Object> configFilesCountdown = configFiles.get("countdown");
 
@@ -44,6 +59,13 @@ public class Countdown extends FileHandler {
         }
     }
 
+    /** Deletes the file.
+     *
+     * @see FileHandler
+     * @see File
+     *
+     * @since 1.0
+     */
     @Override
     public void delete() {
         deleteFile(fileName);

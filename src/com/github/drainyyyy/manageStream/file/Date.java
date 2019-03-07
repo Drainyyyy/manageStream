@@ -6,11 +6,18 @@
 
 package com.github.drainyyyy.manageStream.file;
 
+/**
+ * @author Drainyyy
+ * https://github.com/Drainyyyy
+ */
 public class Date extends FileHandler {
 
     //TODO: Readd date.txt but with formatter
     String fileName = "date.txt";
 
+    /**
+     * Unfinished
+     */
     @Override
     public void start() {
 
@@ -18,6 +25,9 @@ public class Date extends FileHandler {
 
     }
 
+    /**
+     * Unfinished
+     */
     @Override
     public void delete() {
         deleteFile(fileName);

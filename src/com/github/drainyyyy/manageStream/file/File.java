@@ -6,7 +6,11 @@
 
 package com.github.drainyyyy.manageStream.file;
 
-public interface File {
+/**
+ * @author Drainyyy
+ * https://github.com/Drainyyyy
+ */
+interface File {
 
     void start();
     void delete();

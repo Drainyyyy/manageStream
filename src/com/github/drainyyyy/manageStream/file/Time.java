@@ -5,15 +5,27 @@
  */
 
 package com.github.drainyyyy.manageStream.file;
-
 import com.github.drainyyyy.manageStream.util.Log;
 
 import java.text.SimpleDateFormat;
 
+/**
+ * @author Drainyyy
+ * https://github.com/Drainyyyy
+ */
 public class Time extends FileHandler {
 
     String fileName = "time.txt";
 
+    /** Creates a time file.
+     * <br>
+     * Writes the current time in `HH:mm:ss` format into a file.
+     *
+     * @see FileHandler
+     * @see File
+     *
+     * @since 1.0
+     */
     @Override
     public void start() {
 
@@ -34,6 +46,13 @@ public class Time extends FileHandler {
 
     }
 
+    /** Deletes the file.
+     *
+     * @see FileHandler
+     * @see File
+     *
+     * @since 1.0
+     */
     @Override
     public void delete() {
 

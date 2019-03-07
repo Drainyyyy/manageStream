@@ -12,24 +12,31 @@ import org.json.simple.parser.*;
 import java.io.*;
 import java.util.HashMap;
 
+/**
+ * @author Drainyyy
+ * https://github.com/Drainyyyy
+ */
 public class ConfigReader {
 
-    private String directory;
-
-    public ConfigReader(String directory) {
-
-        this.directory = directory;
-
-    }
-
-    public HashMap readConfig() {
+    /** Converts the config.json to a java HashMap
+     * <br>
+     * Converts the config.json content with json-simple to an accessible java HashMap.
+     *
+     * @param directory The directory the config.json is in.
+     * @return A HashMap with the content of config.json
+     *
+     * @see JSONObject
+     *
+     * @since 1.0
+     */
+    public static HashMap<String, HashMap> readConfig(String directory) {
 
         try {
-            Object configFile = new JSONParser().parse(new FileReader(this.directory));
+            Object configFile = new JSONParser().parse(new FileReader(directory));
 
             JSONObject configJson = (JSONObject) configFile;
 
-            HashMap<String, HashMap<String, HashMap>> config = configJson;
+            HashMap<String, HashMap> config = configJson;
 
             return config;
         } catch (Exception e) {

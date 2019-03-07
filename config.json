@@ -18,8 +18,9 @@
   "toggle": {
     "software": false,
     "dashboard": false,
-    "uptime": true,
+    "uptime": false,
     "countdown": false,
-    "time": true
+    "time": false,
+    "date": false
   }
 }

@@ -11,14 +11,29 @@ import com.github.drainyyyy.manageStream.util.Log;
 
 import java.util.HashMap;
 
+/**
+ * @author Drainyyy
+ * https://github.com/Drainyyyy
+ */
 public class Uptime extends FileHandler {
 
     String fileName = "uptime.txt";
 
+    /** Creates an uptime file.
+     * <br>
+     * As soon as this gets started every second the current uptime (since the start of the method) gets written into a file.<br>
+     * There's also the possibility to write the time you already done into the config. Than the uptime counts from your time.
+     *
+     * @see FileHandler
+     * @see File
+     * @see ConfigReader
+     *
+     * @since 1.0
+     */
     @Override
     public void start() {
 
-        HashMap<String, HashMap> config = new ConfigReader("config.json").readConfig();
+        HashMap<String, HashMap> config = ConfigReader.readConfig("config.json");
         HashMap<String, HashMap> configFiles = config.get("files");
         HashMap<String, Object> configFilesUptime = configFiles.get("uptime");
 
@@ -49,6 +64,13 @@ public class Uptime extends FileHandler {
         }
     }
 
+    /** Deletes the file.
+     *
+     * @see FileHandler
+     * @see File
+     *
+     * @since 1.0
+     */
     @Override
     public void delete() {
         deleteFile(fileName);

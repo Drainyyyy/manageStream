@@ -14,10 +14,14 @@ import com.github.drainyyyy.manageStream.util.Log;
 import java.io.FileOutputStream;
 import java.util.HashMap;
 
+/**
+ * @author Drainyyy
+ * https://github.com/Drainyyyy
+ */
 abstract class FileHandler implements com.github.drainyyyy.manageStream.file.File {
 
     private HashMap<String, String> configDirectories;
-    private HashMap<String, HashMap> config = new ConfigReader("config.json").readConfig();
+    private HashMap<String, HashMap> config = ConfigReader.readConfig("config.json");
 
     FileHandler() {
 
@@ -25,6 +29,18 @@ abstract class FileHandler implements com.github.drainyyyy.manageStream.file.Fil
 
     }
 
+    /** The writer for the files.
+     * <br>
+     * The directory where to write gets taken from the config.<br>
+     * For the content that's getting written a buffered output stream gets created.
+     *
+     * @param content The content that's getting written in the file.
+     * @param filename The name of the file.
+     *
+     * @see ConfigReader
+     *
+     * @since 1.0
+     */
     void writeFile(String content, String filename) {
 
         String directory = this.configDirectories.get("app_dir");
@@ -46,6 +62,16 @@ abstract class FileHandler implements com.github.drainyyyy.manageStream.file.Fil
 
     }
 
+    /** Deletes the respective file.
+     *
+     * If a file is no longer required it gets deleted by this function.
+     *
+     * @param filename The name of the file that will get deleted.
+     *
+     * @see ConfigReader
+     *
+     * @since 1.0
+     */
     void deleteFile(String filename) {
 
         String directory = this.configDirectories.get("app_dir");
