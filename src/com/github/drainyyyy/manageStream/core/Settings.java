@@ -6,10 +6,10 @@
 
 package com.github.drainyyyy.manageStream.core;
 
-import com.github.drainyyyy.minimalLog.UncoloredLog;
+import com.github.drainyyyy.minimalLog.ColoredLog;
 
 import javax.swing.filechooser.FileSystemView;
-import java.awt.*;
+import java.awt.Font;
 import java.text.SimpleDateFormat;
 
 /**
@@ -29,7 +29,7 @@ public class Settings {
     public static final String themeDir = appDir + "/themes";
 
     //log type
-    public static final UncoloredLog log = new UncoloredLog(">", new SimpleDateFormat("dd.MM.yyyy ~ HH:mm:ss"), "|");
+    public static final ColoredLog log = new ColoredLog(">", new SimpleDateFormat("dd.MM.yyyy ~ HH:mm:ss"), "|");//TODO Change before deploy to uncolored
 
     //fonts
     public static final Font fontSmall = new Font("monospace", Font.PLAIN, 16);
