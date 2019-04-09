@@ -32,7 +32,7 @@ public class Countdown extends FileHandler {
      * @since 1.0.0
      */
     @Override
-    public void fileMethod() {
+    public void fileMethod() throws InterruptedException {
         String writable;
             while(!timeUp) {
                 if (minute > 0) {
@@ -49,6 +49,7 @@ public class Countdown extends FileHandler {
                     }
                 }
                 writeFile(path, writable);
+                Thread.sleep(1000);
             }
     }
 
@@ -62,7 +63,7 @@ public class Countdown extends FileHandler {
      * @since 1.0.0
      */
     @Override
-    public void start() {
+    public void start() throws InterruptedException {
         if (countdown <= 0) {
             Settings.log.warning("[COUNTDOWN] The countdown is less or equal to 0. (COUNTDOWN: " + countdown + ")");
             return;
@@ -84,7 +85,6 @@ public class Countdown extends FileHandler {
      */
     @Override
     public void delete() {
-        java.io.File file = new java.io.File(path);
-        file.delete();
+        deleteFile(path);
     }
 }
