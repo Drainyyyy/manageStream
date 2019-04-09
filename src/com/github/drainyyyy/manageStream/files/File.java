@@ -16,14 +16,14 @@ interface File {
      *
      * @since 1.0.0
      */
-    void fileMethod();
+    void fileMethod() throws InterruptedException;
 
     /** Will be called to start the respective process.<br>
      * Here some basic things like getting values from the config or other things can be done.
      *
      * @since 1.0.0
      */
-    void start();
+    void start() throws InterruptedException;
 
     /** Deletes the file.
      *
