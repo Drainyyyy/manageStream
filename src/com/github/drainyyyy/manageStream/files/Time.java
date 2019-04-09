@@ -11,9 +11,22 @@ import com.github.drainyyyy.manageStream.utils.ConfigHandler;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+/**
+ * @author Drainyyy
+ * https://github.com/Drainyyyy
+ */
 public class Time extends FileHandler {
     private String path = (String) ConfigHandler.readConfig("directories.files");//TODO add files to config
 
+    /** Every second the current system time gets updated and written into the file.
+     *
+     * @see File
+     * @see FileHandler
+     *
+     * @throws InterruptedException
+     *
+     * @since 1.0.0
+     */
     @Override
     public void fileMethod() throws InterruptedException {
         while(true) {
@@ -23,11 +36,24 @@ public class Time extends FileHandler {
         }
     }
 
+    /** start does nothing here just calling fileMethod().
+     *
+     * @throws InterruptedException
+     *
+     * @since 1.0.0
+     */
     @Override
     public void start() throws InterruptedException {
         fileMethod();
     }
 
+    /** The file will get deleted.
+     *
+     * @see File
+     * @see FileHandler
+     *
+     * @since 1.0.0
+     */
     @Override
     public void delete() {
         deleteFile(path);

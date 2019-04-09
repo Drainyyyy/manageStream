@@ -29,6 +29,8 @@ public class Countdown extends FileHandler {
      * @see File
      * @see FileHandler
      *
+     * @throws InterruptedException
+     *
      * @since 1.0.0
      */
     @Override
@@ -59,6 +61,8 @@ public class Countdown extends FileHandler {
      *
      * @see File
      * @see FileHandler
+     *
+     * @throws InterruptedException
      *
      * @since 1.0.0
      */
