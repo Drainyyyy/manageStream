@@ -18,6 +18,9 @@ import java.io.IOException;
 public class manageStream {
 
     //TODO Documentation
+    //FIXME Rework log and try catch log; make equal
+    //FIXME equal documentation and spaces between code
+    //TODO clean up code
     public static void main(String[] args) {
         checkAppFiles();
     }
