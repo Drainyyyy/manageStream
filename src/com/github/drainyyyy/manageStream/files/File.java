@@ -14,12 +14,16 @@ interface File {
 
     /** The actual task the method will do.
      *
+     * @throws InterruptedException
+     *
      * @since 1.0.0
      */
     void fileMethod() throws InterruptedException;
 
     /** Will be called to start the respective process.<br>
      * Here some basic things like getting values from the config or other things can be done.
+     *
+     * @throws InterruptedException
      *
      * @since 1.0.0
      */
