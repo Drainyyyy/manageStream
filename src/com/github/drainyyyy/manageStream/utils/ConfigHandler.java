@@ -59,8 +59,10 @@ public class ConfigHandler extends JsonHandler {
         for (String key : targets) {
             if (currentHashMap.get(key) instanceof HashMap) {
                 currentHashMap = (HashMap) currentHashMap.get(key);
+                output = currentHashMap;
+            } else {
+                output = currentHashMap.get(key);
             }
-            output = currentHashMap;
         }
         return output;
     }
