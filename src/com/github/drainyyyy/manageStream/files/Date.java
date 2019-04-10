@@ -60,6 +60,6 @@ public class Date extends FileHandler {
      */
     @Override
     public void delete() {
-
+        deleteFile(path);
     }
 }
