@@ -11,6 +11,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.*;
+import java.util.Arrays;
 
 /**
  * @author Drainyyy
@@ -55,8 +56,7 @@ public class JsonHandler {
             BufferedReader bufferedReader = new BufferedReader(reader);
             jsonContent = parser.parse(bufferedReader);
         } catch (Exception e) {
-            e.printStackTrace();
-            Settings.log.error(e.getMessage());
+            Settings.log.error(Arrays.toString(e.getStackTrace()));
         }
         return jsonContent;
     }
