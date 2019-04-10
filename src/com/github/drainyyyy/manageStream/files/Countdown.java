@@ -14,11 +14,10 @@ import com.github.drainyyyy.manageStream.utils.ConfigHandler;
  * https://github.com/Drainyyyy
  */
 public class Countdown extends FileHandler {
-    private String path = (String) ConfigHandler.readConfig("directories.files");//TODO add files to config
+    private String path = ConfigHandler.readConfig("directories.files") + "/countdown.txt";
     private int countdown = (int) ConfigHandler.readConfig("files.countdown.countdown");
     private String timeUpMessage = (String) ConfigHandler.readConfig("files.countdown.time_up_message");
-    private int minute = 0;
-    private int second = 0;
+    private int minute, second;
     private boolean timeUp = false;
 
     /** The minutes (if given) and seconds get printed in the respective file.<br>
@@ -74,7 +73,7 @@ public class Countdown extends FileHandler {
         }
         while (countdown > 60) {
             minute++;
-            countdown = countdown - 60;
+            countdown -= 60;
         }
         second = countdown;
         fileMethod();

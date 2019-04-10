@@ -16,7 +16,7 @@ import java.util.Calendar;
  * https://github.com/Drainyyyy
  */
 public class Time extends FileHandler {
-    private String path = (String) ConfigHandler.readConfig("directories.files");//TODO add files to config
+    private String path = ConfigHandler.readConfig("directories.files") + "/time.txt";
 
     /** Every second the current system time gets updated and written into the file.
      *
