@@ -6,57 +6,49 @@
 
 package com.github.drainyyyy.manageStream.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.drainyyyy.manageStream.core.Settings;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+
+
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * @author Drainyyy
  * https://github.com/Drainyyyy
  */
 public class JsonHandler {
+    private static ObjectMapper mapper = new ObjectMapper();
 
-    /** Write into a Json file
-     *
-     * @param content The content that should be written in form of a JSONObject
-     * @param path The path where the json file is
-     *
-     * @see JSONObject
-     *
-     * @since 1.0.0
+    /**
+     * TODO redo documentation
      */
-    public static void writeJson(JSONObject content, String path) {
-        try (FileWriter writer = new FileWriter(new File(path))){
+    public static void writeJson(Object content, String path) {
+        try {
+            String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(content);
+            FileWriter writer = new FileWriter(new File(path));
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
-            bufferedWriter.write(content.toJSONString());
+            bufferedWriter.write(json);
             bufferedWriter.flush();
         } catch (Exception e) {
-            e.printStackTrace();
-            Settings.log.error(e.getMessage());
+            Settings.log.exceptionHandler(e);
         }
     }
 
-    /** Get the content of a json file
-     *
-     * @param path The path where the json file is
-     * @return The files content
-     *
-     * @see JSONParser
-     *
-     * @since 1.0.0
+    /**
+     * TODO redo documentation
      */
-    public static Object readJson(String path) {
-        JSONParser parser = new JSONParser();
-        Object jsonContent = null;
+    public static HashMap readJson(String path) {
+        HashMap jsonContent = null;
 
         try (FileReader reader = new FileReader(new File(path))) {
             BufferedReader bufferedReader = new BufferedReader(reader);
-            jsonContent = parser.parse(bufferedReader);
+            jsonContent = mapper.readValue(bufferedReader, HashMap.class);
         } catch (Exception e) {
-            Settings.log.error(Arrays.toString(e.getStackTrace()));
+            Settings.log.exceptionHandler(e);
         }
         return jsonContent;
     }

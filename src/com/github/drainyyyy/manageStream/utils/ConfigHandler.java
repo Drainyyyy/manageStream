@@ -7,15 +7,11 @@
 package com.github.drainyyyy.manageStream.utils;
 
 import com.github.drainyyyy.manageStream.core.Settings;
-import com.github.drainyyyy.manageStream.misc.Templates;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Drainyyy
@@ -34,7 +30,7 @@ public class ConfigHandler extends JsonHandler {
      */
     public static HashMap readConfig() {
         String path = Settings.appDir + "/config.json";
-        return (HashMap) readJson(path);
+        return readJson(path);
     }
 
     /**
@@ -49,8 +45,7 @@ public class ConfigHandler extends JsonHandler {
      * @since 1.0.0
      */
     public static Object readConfig(String target) {
-        String path = Settings.appDir + "/config.json";
-        HashMap config = (HashMap) readJson(path);
+        HashMap config = readConfig();
 
         ArrayList<String> targets = new ArrayList<>(Arrays.asList(target.split("\\.")));
         HashMap currentHashMap = config;
@@ -67,19 +62,60 @@ public class ConfigHandler extends JsonHandler {
         return output;
     }
 
-    public static void checkConfig() throws IOException {
-        String configFile = readConfig().toString();
-        String configTemplate = Templates.config;
-        String path = Settings.appDir + "/config.json";
-        //TODO check if config doesn't equal template but value of key doesn't matter
-        if (!configFile.equals(configTemplate)) {
-            File config = new File(path);
-            FileWriter fileWriter = new FileWriter(config);
-            BufferedWriter configWriter = new BufferedWriter(fileWriter);
+    /** Writes the given value to the requested target
+     *
+     * @param target The targeted path
+     * @param key The key of the dictionary that's getting written
+     * @param value The value dictionary that's getting written
+     *
+     * @see ConfigHandler#readConfig(String)
+     *
+     * @since 1.0.0
+     */
+    public static void writeConfig(String target, String key, Object value) {
+        HashMap config = readConfig();
+        ArrayList<String> targets = new ArrayList<>(Arrays.asList(target.split("\\.")));
+        Map currentHashMap = config;
 
-            configWriter.write(configTemplate);
-            configWriter.flush();
+        for (String targetKey : targets) {
+            currentHashMap = (Map) currentHashMap.get(targetKey);
         }
+        currentHashMap.put(key, value);
+        writeJson(config, Settings.appDir + "/config.json");
     }
 
+    /** Tries to read the requested and if the path doesn't exist it will get created
+     *
+     * @param target the targeted value
+     * @return the targeted value if it exists, if not it creates the path and returns null
+     *
+     * @see JsonHandler
+     * @see ConfigHandler#readConfig(String)
+     * @see ConfigHandler#writeConfig(String, String, Object)
+     *
+     * @since 1.0.0
+     */
+    public static Object readWrite(String target) {
+        if (readConfig(target) != null)  {
+            return readConfig(target);
+        }
+
+        ArrayList<String> targets = new ArrayList<>(Arrays.asList(target.split("\\.")));
+        String key = targets.get(targets.size() - 1);
+        String targetPath = target.replace("." + key, "");
+        ArrayList<String> targetPathParts = new ArrayList<>(Arrays.asList(targetPath.split("\\.")));
+
+        StringBuilder path = new StringBuilder();
+        for (int i = 0; i <= targetPathParts.size() - 1; i++) {
+            path.append(targetPathParts.get(i));
+            String pathString = path.toString();
+            if (readConfig(pathString) == null) {
+                writeConfig(pathString.replace(targetPathParts.get(i), ""), targetPathParts.get(i), new HashMap<>());
+            }
+            path.append(".");
+        }
+
+        writeConfig(targetPath, key, null);
+        return readConfig(target);
+    }
 }

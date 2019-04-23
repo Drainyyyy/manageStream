@@ -9,7 +9,6 @@ package com.github.drainyyyy.manageStream.core;
 import com.github.drainyyyy.manageStream.utils.ConfigHandler;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * @author Drainyyy
@@ -45,21 +44,6 @@ public class manageStream {
         if (!themesDir.exists()) {
             themesDir.mkdir();
             Settings.log.notification("Created themes directory");
-        }
-        if (!config.exists()) {
-            try {
-                config.createNewFile();
-                Settings.log.notification("Created config file");
-            } catch (IOException e) {
-                e.printStackTrace();
-                Settings.log.warning(e.getMessage());
-            }
-        }
-        try {
-            ConfigHandler.checkConfig();
-        } catch (Exception e) {
-            Settings.log.error(e.getMessage());
-            e.printStackTrace();
         }
     }
 
