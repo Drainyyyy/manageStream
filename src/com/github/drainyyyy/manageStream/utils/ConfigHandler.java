@@ -69,8 +69,6 @@ public class ConfigHandler extends JsonHandler {
      * @param value The value dictionary that's getting written
      *
      * @see ConfigHandler#readConfig(String)
-     *
-     * @since 1.0.0
      */
     public static void writeConfig(String target, String key, Object value) {
         HashMap config = readConfig();

@@ -6,8 +6,6 @@
 
 package com.github.drainyyyy.manageStream.core;
 
-import com.github.drainyyyy.manageStream.utils.ConfigHandler;
-
 import java.io.File;
 
 /**
@@ -35,7 +33,6 @@ public class manageStream {
     private static void checkAppFiles() {
         File appDir = new File(Settings.appDir);
         File themesDir = new File(Settings.themeDir);
-        File config = new File(Settings.appDir + "/config.json");
 
         if (!appDir.exists()) {
             appDir.mkdir();
