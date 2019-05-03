@@ -15,7 +15,7 @@
   ~ https://opensource.org/licenses/MIT
   -->
 
-<AnchorPane id="frame" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.drainyyyy.manageStream.gui.Controller">
+<AnchorPane id="frame" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.drainyyyy.manageStream.core.Controller">
     <children>
         <AnchorPane>
          <children>
