@@ -1,0 +1,96 @@
+/*
+ * Copyright (c) 2019. Drainyyy
+ * This project is covered by MIT License
+ * https://opensource.org/licenses/MIT
+ */
+
+#frame {
+    -fx-background-color: #171717;
+}
+
+#main-panel #text-heading1 {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+#main-panel #text-heading2 {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+#main-panel #text {
+    -fx-font-size: 16;
+}
+
+#main-panel #text-button {
+    -fx-background-color: #5bb7c1;
+    -fx-background-radius: 30 30 30 30;
+    -fx-font-size: 16;
+}
+
+#main-panel #text-button:hover {
+    -fx-background-color: #539091;
+}
+
+#main-panel #text-button:pressed {
+    -fx-background-color: #87bdbf;
+}
+
+#title-panel {
+    -fx-background-color: #232323;
+}
+
+#title-panel .label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+#title-panel .button{
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-radius: 0 0 0 10;
+}
+
+#title-panel .button:hover {
+    -fx-background-color: #bf5f4c;
+}
+
+#title-panel .button:pressed {
+    -fx-background-color: #6c4141;
+}
+
+#sidebar {
+    -fx-background-color: #292929;
+}
+
+#sidebar #nav-button {
+    -fx-background-color: #2f60af;
+    -fx-background-radius: 0 30 30 0;
+    -fx-font-size: 16px;
+}
+
+#sidebar #nav-button:hover {
+    -fx-background-color: #5c75f2;
+}
+
+#sidebar #nav-button:pressed {
+    -fx-background-color: #474b63;
+}
+
+#sidebar #logo-button {
+    -fx-background-color: #bf554b;
+    -fx-background-radius: 10;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+#sidebar #logo-button:hover {
+    -fx-background-color: #d85848;
+}
+
+#sidebar #logo-button:pressed {
+    -fx-background-color: #b35b4b;
+}
+
+#main-panel #main-panel-logo {
+    -fx-opacity: 0.2;
+}
