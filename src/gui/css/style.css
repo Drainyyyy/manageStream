@@ -94,3 +94,17 @@
 #main-panel #main-panel-logo {
     -fx-opacity: 0.2;
 }
+
+#main-panel #button-green {
+    -fx-background-color: #78bf7a;
+    -fx-background-radius: 30;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+#main-panel #button-red {
+    -fx-background-color: #a63839;
+    -fx-background-radius: 30;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}

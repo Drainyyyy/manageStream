@@ -27,7 +27,9 @@ import java.net.URL;
 public class Controller {
 
     @FXML
-    public Button closeButton, minimizeButton, indexNavButton, dashboardNavButton, toggleNavButton, infoNavButton, changelogButton;
+    public Button closeButton, minimizeButton, indexNavButton, dashboardNavButton, toggleNavButton, infoNavButton, changelogButton, indexPanelButton;
+
+    boolean indexStarted = false;
 
     private String path = "src/gui/fxml/";
 
@@ -82,5 +84,18 @@ public class Controller {
     @FXML
     public void changelogInfoButtonAction(ActionEvent event) throws Exception {
         openWebsite("https://github.com/Drainyyyy/manageStream/tree/master/CHANGELOG.md");
+    }
+
+    @FXML
+    public void indexPanelButtonAction(ActionEvent event) {
+        if (indexStarted) {
+            indexPanelButton.setId("button-green");
+            indexPanelButton.setText("Start Enabled");
+            indexStarted = false;
+        } else {
+            indexPanelButton.setId("button-red");
+            indexPanelButton.setText("Stop Active");
+            indexStarted = true;
+        }
     }
 }
