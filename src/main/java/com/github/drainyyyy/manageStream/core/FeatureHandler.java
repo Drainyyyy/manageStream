@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Set;
 
 /**
  * @author Drainyyy
@@ -27,8 +26,8 @@ public class FeatureHandler {
             time = new Thread("time"),
             date = new Thread("date");
 
-    private static String softwarePath = (String) ConfigHandler.readWrite("directories.software");
-    private static String dashboardUrl = (String) ConfigHandler.readWrite("directories.dashboard");
+    private static String softwarePath = (String) ConfigHandler.readWrite("directories.software", null);
+    private static String dashboardUrl = (String) ConfigHandler.readWrite("directories.dashboard", null);
 
     private static ArrayList<Thread> activeThreads = new ArrayList<>();
     private static ArrayList<Thread> allThreads = new ArrayList<>(Arrays.asList(uptime, countdown, time, date));
@@ -44,12 +43,8 @@ public class FeatureHandler {
      *
      * @param name
      * @param thread
-     * @param delete
      */
-    private static void stopFileCreator(String name, Thread thread, Runnable delete) {
-        if (delete != null) {
-            delete.run();
-        }
+    private static void stopFileCreator(String name, Thread thread) {
         thread.interrupt();
         activeThreads.remove(thread);
         Settings.log.information("[stop" + name.toUpperCase() + "] Stopped " + thread.getName() + " thread");
@@ -159,7 +154,7 @@ public class FeatureHandler {
      * @since 1.0.0
      */
     public static void stopUptime() {
-        stopFileCreator("uptime", uptime, () -> new Uptime().delete());
+        stopFileCreator("uptime", uptime);
     }
 
     /** Stops the countdown thread and deletes the file.
@@ -169,7 +164,7 @@ public class FeatureHandler {
      * @since 1.0.0
      */
     public static void stopCountdown() {
-        stopFileCreator("countdown", countdown, () -> new Countdown().delete());
+        stopFileCreator("countdown", countdown);
     }
 
     /** Stops the time thread and deletes the file.
@@ -179,7 +174,7 @@ public class FeatureHandler {
      * @since 1.0.0
      */
     public static void stopTime() {
-        stopFileCreator("time", time, () -> new Time().delete());
+        stopFileCreator("time", time);
     }
 
     /** Stops the date thread and deletes the file.
@@ -189,7 +184,14 @@ public class FeatureHandler {
      * @since 1.0.0
      */
     public static void stopDate() {
-        stopFileCreator("date", date, () -> new Date().delete());
+        stopFileCreator("date", date);
+    }
+
+    public static void deleteAll() {
+        new Date().delete();
+        new Time().delete();
+        new Countdown().delete();
+        new Uptime().delete();
     }
 
     /** Starts all functions (if they are enabled).
@@ -201,7 +203,7 @@ public class FeatureHandler {
     public static void startAll() {
         for (Thread func : allThreads) {
             String funcName = func.getName();
-            boolean toggled = ConfigHandler.readWrite("toggle." + funcName).equals(true);
+            boolean toggled = ConfigHandler.readWrite("toggle." + funcName, false).equals(true);
 
             if (toggled) {
                 func.start();
@@ -214,8 +216,8 @@ public class FeatureHandler {
      * @since 1.0.0
      */
     public static void stopAll() {
-        for (Thread active : activeThreads) {//TODO when stopping all files not deleted
-            stopFileCreator(active.getName(), active, null);
+        for (Thread active : activeThreads) {
+            stopFileCreator(active.getName(), active);
         }
     }
 }
