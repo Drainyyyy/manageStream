@@ -2,6 +2,10 @@
 *.idea/
 out/
 *.iml
+.classpath
+.project
+dependency-reduced-pom.xml
+.settings/
 
 
 # Compiled class file
