@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.File;
-import java.net.URI;
+import java.net.URL;
 
 /**
  * @author Drainyyy
@@ -34,8 +34,8 @@ public class Main extends Application {
     //TODO documentation
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URI path = new File("src/gui/fxml/index.fxml").toURI();
-        Parent index = FXMLLoader.load(path.toURL());
+        URL indexPath = getClass().getResource("/fxml/index.fxml");
+        Parent index = FXMLLoader.load(indexPath);
 
         primaryStage.setScene(new Scene(index));
         primaryStage.setResizable(false);
