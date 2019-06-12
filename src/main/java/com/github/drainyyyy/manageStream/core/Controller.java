@@ -13,10 +13,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URL;
 
@@ -40,11 +42,50 @@ public class Controller {
         Desktop.getDesktop().browse(new URI(link));
     }
 
+    private Scene getScene(String filename) {
+        Parent loadedFxml = null;
+        try {
+            loadedFxml = FXMLLoader.load(getClasspath(fxmlPath + filename));
+        } catch(Exception e) {
+            e.printStackTrace();
+            System.out.println("--- Cause ---");
+            e.getCause();
+            System.out.println("--- Message ---");
+            e.getMessage();
+        }
+        return new Scene(loadedFxml);
+    }
+
+    @FXML
+    private void initialize() {
+        /*
+        Scene index = getScene("index.fxml");
+        Scene dashboard = getScene("dashboard.fxml");
+        Scene toggle = getScene("toggle.fxml");
+        Scene info = getScene("info.fxml");
+
+        Scene currentScene = closeButton.getScene();
+
+        if (currentScene.equals(index)) {
+            if (indexStarted) {
+                indexPanelButton.setId("button-red");
+                indexPanelButton.setText("Stop Active");
+                indexStarted = false;
+            } else {
+                indexPanelButton.setId("button-green");
+                indexPanelButton.setText("Start Enabled");
+                indexStarted = true;
+            }
+        }
+        FIXME infinite error loop
+         */
+    }
+
     @FXML
     public void closeButtonAction(ActionEvent event) {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
-        if (ConfigHandler.readWrite("delete_files_on_close", false).equals(true)) {
+        if (ConfigHandler.readWrite("etc.delete_files_on_close", false).equals(true)) {
             FeatureHandler.deleteAll();
         }
     }
@@ -60,17 +101,6 @@ public class Controller {
         Stage stage = (Stage) indexNavButton.getScene().getWindow();
         Parent index = FXMLLoader.load(getClasspath(fxmlPath + "index.fxml"));
         stage.setScene(new Scene(index));
-
-        if (indexStarted) {
-            indexPanelButton.setId("button-red");
-            indexPanelButton.setText("Stop Active");
-            indexStarted = false;
-        } else {//TODO set green when loading stage
-            indexPanelButton.setId("button-green");
-            indexPanelButton.setText("Start Enabled");
-            indexStarted = true;
-        }
-
     }
 
     @FXML
@@ -101,14 +131,15 @@ public class Controller {
 
     @FXML
     public void indexPanelButtonAction(ActionEvent event) {
-        if (indexStarted) {
+        if (!indexStarted) {
             indexPanelButton.setId("button-red");
             indexPanelButton.setText("Stop Active");
-            indexStarted = false;
+            indexStarted = true;
         } else {
             indexPanelButton.setId("button-green");
             indexPanelButton.setText("Start Enabled");
-            indexStarted = true;
+            indexStarted = false;
         }
+        System.out.println(indexStarted);
     }
 }

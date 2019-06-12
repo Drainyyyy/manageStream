@@ -8,16 +8,22 @@ package com.github.drainyyyy.manageStream.utils;
 
 import com.github.drainyyyy.manageStream.core.Settings;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Drainyyy
  * https://github.com/Drainyyyy
  */
 public class ConfigHandler extends JsonHandler {
+
+    /**
+     *TODO documentation
+     */
+    private static ArrayList<String> targetSplitter(String target) {
+        target = (target.isEmpty()) ? "." : target;
+        ArrayList<String> targets = new ArrayList<>(Arrays.asList(target.split("\\.")));
+        return targets;
+    }
 
     /**
      * Get the whole config
@@ -47,7 +53,7 @@ public class ConfigHandler extends JsonHandler {
     public static Object readConfig(String target) {
         HashMap config = readConfig();
 
-        ArrayList<String> targets = new ArrayList<>(Arrays.asList(target.split("\\.")));
+        ArrayList<String> targets = targetSplitter(target);
         HashMap currentHashMap = config;
         Object output = null;
 
@@ -72,12 +78,14 @@ public class ConfigHandler extends JsonHandler {
      */
     public static void writeConfig(String target, String key, Object value) {
         HashMap config = readConfig();
-        ArrayList<String> targets = new ArrayList<>(Arrays.asList(target.split("\\.")));
+        ArrayList<String> targets = targetSplitter(target);
         Map currentHashMap = config;
 
         for (String targetKey : targets) {
-            currentHashMap = (Map) currentHashMap.get(targetKey);
+            currentHashMap.put(targetKey, new HashMap<>());
+            currentHashMap = (HashMap) currentHashMap.get(targetKey);
         }
+
         currentHashMap.put(key, value);
         writeJson(config, Settings.appDir + "/config.json");
     }
@@ -93,27 +101,27 @@ public class ConfigHandler extends JsonHandler {
      *
      * @since 1.0.0
      */
-    public static Object readWrite(String target) {
+    public static Object readWrite(String target, Object value) {
         if (readConfig(target) != null)  {
             return readConfig(target);
         }
 
-        ArrayList<String> targets = new ArrayList<>(Arrays.asList(target.split("\\.")));
+        ArrayList<String> targets = targetSplitter(target);
         String key = targets.get(targets.size() - 1);
-        String targetPath = target.replace("." + key, "");
-        ArrayList<String> targetPathParts = new ArrayList<>(Arrays.asList(targetPath.split("\\.")));
+        String targetPath = (targets.size() <= 1) ? "" : target.replace("." + key, "");
+        ArrayList<String> targetPathParts = targetSplitter(targetPath);
 
         StringBuilder path = new StringBuilder();
         for (int i = 0; i <= targetPathParts.size() - 1; i++) {
-            path.append(targetPathParts.get(i));
-            String pathString = path.toString();
-            if (readConfig(pathString) == null) {
-                writeConfig(pathString.replace(targetPathParts.get(i), ""), targetPathParts.get(i), new HashMap<>());
+            String pathPart = (targetPathParts.size() == 0) ? "" : targetPathParts.get(i);
+            path.append(pathPart);
+
+            if (readConfig(path.toString()) == null) {
+                writeConfig(path.toString().replace(pathPart, ""), pathPart, new HashMap<>());
             }
-            path.append(".");
         }
 
-        writeConfig(targetPath, key, null);
+        writeConfig(targetPath, key, value);
         return readConfig(target);
     }
 }
